@@ -3,18 +3,133 @@ import { useState } from "react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { SessionCard } from "@/components/ui/session-card"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react"
 
 export default function Home() {
   const [activeProject, setActiveProject] = useState(0)
+  const [lang, setLang] = useState<"en" | "id">("en")
+
+  const t = {
+    en: {
+      nav: { home: "Home", services: "Services", works: "Works", testimonials: "Testimonials" },
+      actions: { contact: "Contact Us", language: "English" },
+      hero: {
+        title: "Transform your business with cutting-edge digital solutions",
+        subtitle: "Focus on your business, let us take care of your digital needs.",
+        primary: "Services",
+        secondary: "Contact us",
+      },
+      featured: { label: "Featured Project", title: "Discover our best works", moreDetail: "More Detail" },
+      services: {
+        label: "Our Services",
+        title: "What we do to support your business?",
+        sub: "Pre Project Consulting → Engagement → Agile Development → Launch & Support",
+      },
+      testimonials: { label: "Client Testimonials", title: "What our clients say" },
+      contact: {
+        label: "Contact Us",
+        title: "We are always ready to help you",
+        desc:
+          "We have 8+ years of experience as a Digital Solution Partner. Let’s talk about how we can deliver impactful results for your business.",
+        faq: {
+          label: "FAQ",
+          title: "Frequently Asked Questions",
+          q1: "What should I do if I want to collaborate?",
+          a1: "Reach us via email or phone. We’ll schedule an intro session to understand your goals.",
+          q2: "What is Talent Service?",
+          a2: "We provide vetted talents for design, development, and product to accelerate delivery.",
+          q3: "How do we communicate and monitor the project?",
+          a3: "Weekly check-ins, shared dashboards, and transparent reporting keep progress visible.",
+          q4: "How fast can a project be delivered?",
+          a4: "It depends on scope, but most engagements kick off within 1–2 weeks.",
+          q5: "What if there are changes after release?",
+          a5: "We support post-release iterations and maintenance based on your plan.",
+        },
+        map: { open: "Open Maps" },
+      },
+      footer: {
+        tagline: "Transform your business with cutting-edge digital solutions.",
+        quickLinks: "Quick Links",
+        services: "Services",
+        contact: "Contact",
+        home: "Home",
+        privacy: "Privacy Policy",
+        terms: "Terms of Service",
+        works: "Works",
+        testimonials: "Testimonials",
+        webDev: "Web Development",
+        mobile: "Mobile Apps",
+        design: "UI/UX Design",
+        consulting: "Consulting",
+        rights: "© 2025 Dafidea. All rights reserved.",
+      },
+    },
+    id: {
+      nav: { home: "Beranda", services: "Layanan", works: "Karya", testimonials: "Testimoni" },
+      actions: { contact: "Hubungi Kami", language: "Indonesia" },
+      hero: {
+        title: "Transformasi bisnis Anda dengan solusi digital mutakhir",
+        subtitle: "Fokus pada bisnis Anda, serahkan kebutuhan digital kepada kami.",
+        primary: "Layanan",
+        secondary: "Hubungi kami",
+      },
+      featured: { label: "Proyek Unggulan", title: "Temukan karya terbaik kami", moreDetail: "Selengkapnya" },
+      services: {
+        label: "Layanan Kami",
+        title: "Apa yang kami lakukan untuk mendukung bisnis Anda?",
+        sub: "Konsultasi Pra Proyek → Keterlibatan → Pengembangan Agile → Rilis & Dukungan",
+      },
+      testimonials: { label: "Testimoni Klien", title: "Apa kata klien kami" },
+      contact: {
+        label: "Hubungi Kami",
+        title: "Kami selalu siap membantu Anda",
+        desc:
+          "Kami memiliki pengalaman 8+ tahun sebagai Mitra Solusi Digital. Mari diskusikan bagaimana kami dapat memberikan hasil yang berdampak bagi bisnis Anda.",
+        faq: {
+          label: "FAQ",
+          title: "Pertanyaan yang Sering Diajukan",
+          q1: "Apa yang harus saya lakukan jika ingin berkolaborasi?",
+          a1: "Hubungi kami via email atau telepon. Kami akan menjadwalkan sesi awal untuk memahami tujuan Anda.",
+          q2: "Apa itu Layanan Talenta?",
+          a2: "Kami menyediakan talenta terverifikasi untuk desain, pengembangan, dan produk guna mempercepat delivery.",
+          q3: "Bagaimana cara komunikasi dan memantau proyek?",
+          a3: "Cek rutin mingguan, dashboard bersama, dan pelaporan transparan menjaga kemajuan terlihat.",
+          q4: "Seberapa cepat proyek dapat diselesaikan?",
+          a4: "Tergantung cakupan, tetapi kebanyakan dimulai dalam 1–2 minggu.",
+          q5: "Bagaimana jika ada perubahan setelah rilis?",
+          a5: "Kami mendukung iterasi dan pemeliharaan pasca rilis sesuai rencana Anda.",
+        },
+        map: { open: "Buka Peta" },
+      },
+      footer: {
+        tagline: "Transformasi bisnis Anda dengan solusi digital mutakhir.",
+        quickLinks: "Tautan Cepat",
+        services: "Layanan",
+        contact: "Kontak",
+        home: "Beranda",
+        privacy: "Kebijakan Privasi",
+        terms: "Ketentuan Layanan",
+        works: "Karya",
+        testimonials: "Testimoni",
+        webDev: "Pengembangan Web",
+        mobile: "Aplikasi Mobile",
+        design: "Desain UI/UX",
+        consulting: "Konsultasi",
+        rights: "© 2025 Dafidea. Semua hak dilindungi.",
+      },
+    },
+  }[lang]
 
   const projects = [
     {
       title: "FUTURA OPERATION",
       company: "PT FUTURA ENERGI INDONESIA (FEI) - Operational App",
       description:
-        "Futura App is designed for PT FEI to elevate operational project management for renewable energy installations. Monitor with ease, foster transparency, ensure accountability, and drive efficiency in every facet.",
+        lang === "en"
+          ? "Futura App is designed for PT FEI to elevate operational project management for renewable energy installations. Monitor with ease, foster transparency, ensure accountability, and drive efficiency in every facet."
+          : "Futura App dirancang untuk PT FEI guna meningkatkan manajemen proyek operasional instalasi energi terbarukan. Pantau dengan mudah, tingkatkan transparansi, jaga akuntabilitas, dan dorong efisiensi di setiap aspek.",
       tags: ["Laravel", "Vue", "Flutter", "MySQL", "Figma"],
       image: "/dafidea-1.png",
       year: "2023",
@@ -24,7 +139,9 @@ export default function Home() {
       title: "SIER SPORT ARENA",
       company: "PT SIER - Online Booking App",
       description:
-        "SIER Sport Arena is tailored for sports enthusiasts, this platform simplifies court reservations and membership registration keeps the user informed about field availability, and elevates the sports experience with ease and excitement.",
+        lang === "en"
+          ? "SIER Sport Arena is tailored for sports enthusiasts, this platform simplifies court reservations and membership registration keeps the user informed about field availability, and elevates the sports experience with ease and excitement."
+          : "SIER Sport Arena ditujukan untuk para penggiat olahraga; platform ini memudahkan pemesanan lapangan dan pendaftaran keanggotaan, memberi informasi ketersediaan lapangan, serta meningkatkan pengalaman olahraga dengan mudah dan menyenangkan.",
       tags: ["Laravel", "Vue", "Flutter", "MySQL", "Figma", "Xendit"],
       image: "/dafidea-2.png",
       year: "2023",
@@ -34,7 +151,9 @@ export default function Home() {
       title: "GAPAI CITA",
       company: "GENERASI CERDAS INDONESIA - Online Aptitude App",
       description:
-        "An online platform designed for aptitude assessment for students. Created in collaboration with certified psychologists, this app ensures precision in test results, raising the bar for accuracy and insight.",
+        lang === "en"
+          ? "An online platform designed for aptitude assessment for students. Created in collaboration with certified psychologists, this app ensures precision in test results, raising the bar for accuracy and insight."
+          : "Platform online untuk asesmen bakat siswa. Dibuat bersama psikolog bersertifikat, aplikasi ini memastikan ketepatan hasil tes, meningkatkan akurasi dan wawasan.",
       tags: ["Laravel", "Vue", "MySQL", "Figma"],
       image: "/dafidea-3.png",
       year: "2023",
@@ -44,19 +163,19 @@ export default function Home() {
 
   const serviceCategories = [
     {
-      title: "Web Development",
+      title: lang === "en" ? "Web Development" : "Pengembangan Web",
       tags: ["Laravel", "Node", "Go", "Vue", "React", "TypeScript", "Quality & Testing Service"],
     },
     {
-      title: "Mobile Development",
+      title: lang === "en" ? "Mobile Development" : "Pengembangan Mobile",
       tags: ["iOS", "Android", "React Native", "Flutter", "Kotlin", "Swift"],
     },
     {
-      title: "Design Concept",
+      title: lang === "en" ? "Design Concept" : "Konsep Desain",
       tags: ["Design System", "Ideation & Prototyping", "UI/UX Design"],
     },
     {
-      title: "Talent Services",
+      title: lang === "en" ? "Talent Services" : "Layanan Talenta",
       tags: [
         "Flexible Scope",
         "Specialized Talent",
@@ -69,10 +188,12 @@ export default function Home() {
       ],
     },
     {
-      title: "Not listed here?",
+      title: lang === "en" ? "Not listed here?" : "Tidak ada di sini?",
       description:
-        "Request and consult with our expert to achieve perfect team customized with your business needs.",
-      cta: { text: "Contact Us", href: "#contact" },
+        lang === "en"
+          ? "Request and consult with our expert to achieve perfect team customized with your business needs."
+          : "Minta dan konsultasikan dengan ahli kami untuk tim yang tepat, disesuaikan dengan kebutuhan bisnis Anda.",
+      cta: { text: lang === "en" ? "Contact Us" : "Hubungi Kami", href: "#contact" },
     },
   ]
 
@@ -82,7 +203,9 @@ export default function Home() {
       company: "PT Futura Energi Indonesia",
       role: "Operations Manager",
       content:
-        "Dafidea transformed our operations with the Futura App. The platform increased our efficiency by 40% and improved team transparency significantly.",
+        lang === "en"
+          ? "Dafidea transformed our operations with the Futura App. The platform increased our efficiency by 40% and improved team transparency significantly."
+          : "Dafidea mengubah operasional kami dengan Futura App. Platform ini meningkatkan efisiensi 40% dan transparansi tim secara signifikan.",
       avatar: "JS",
     },
     {
@@ -90,7 +213,9 @@ export default function Home() {
       company: "PT SIER",
       role: "CEO",
       content:
-        "The SIER Sport Arena app exceeded our expectations. User adoption was immediate and our booking volume increased by 60% in the first month.",
+        lang === "en"
+          ? "The SIER Sport Arena app exceeded our expectations. User adoption was immediate and our booking volume increased by 60% in the first month."
+          : "Aplikasi SIER Sport Arena melampaui ekspektasi kami. Adopsi pengguna langsung tinggi dan volume pemesanan naik 60% di bulan pertama.",
       avatar: "SN",
     },
     {
@@ -98,7 +223,9 @@ export default function Home() {
       company: "Generasi Cerdas Indonesia",
       role: "Director",
       content:
-        "Working with Dafidea on GAPAI CITA was exceptional. They understood our complex requirements and delivered a solution that truly helps students.",
+        lang === "en"
+          ? "Working with Dafidea on GAPAI CITA was exceptional. They understood our complex requirements and delivered a solution that truly helps students."
+          : "Bekerja dengan Dafidea pada GAPAI CITA sangat luar biasa. Mereka memahami kebutuhan kompleks kami dan menghadirkan solusi yang benar-benar membantu siswa.",
       avatar: "AW",
     },
   ]
@@ -121,24 +248,29 @@ export default function Home() {
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <a href="#home" className="text-gray-700 hover:text-gray-900 font-medium">
-              Home
+              {t.nav.home}
             </a>
             <a href="#services" className="text-gray-700 hover:text-gray-900 font-medium">
-              Services
+              {t.nav.services}
             </a>
             <a href="#works" className="text-gray-700 hover:text-gray-900 font-medium">
-              Works
+              {t.nav.works}
             </a>
             <a href="#testimonials" className="text-gray-700 hover:text-gray-900 font-medium">
-              Testimonials
+              {t.nav.testimonials}
             </a>
           </nav>
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <button className="px-3 py-2 bg-gray-900 text-white text-sm rounded font-medium">English ▼</button>
+            <button
+              className="px-3 py-2 bg-gray-900 text-white text-sm rounded font-medium"
+              onClick={() => setLang(lang === "en" ? "id" : "en")}
+            >
+              {t.actions.language} ▼
+            </button>
             <button className="px-4 py-2 border border-gray-900 text-gray-900 text-sm rounded font-medium hover:bg-gray-900 hover:text-white transition">
-              Contact Us
+              {t.actions.contact}
             </button>
           </div>
         </div>
@@ -147,18 +279,16 @@ export default function Home() {
       {/* Hero Section */}
       <section id="home" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-4 md:pb-6">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Transform your business with cutting-edge digital solutions
-          </h1>
-          <p className="text-lg text-gray-600 mb-8">Focus on your business, let us take care of your digital needs.</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">{t.hero.title}</h1>
+          <p className="text-lg text-gray-600 mb-8">{t.hero.subtitle}</p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <button className="px-8 py-3 bg-gray-900 text-white font-medium rounded hover:bg-gray-800 transition">
-              Services
+              {t.hero.primary}
             </button>
             <button className="px-8 py-3 border-2 border-gray-900 text-gray-900 font-medium rounded hover:bg-gray-50 transition">
-              Contact us
+              {t.hero.secondary}
             </button>
           </div>
 
@@ -215,8 +345,8 @@ export default function Home() {
       <section id="works" className="bg-white pt-4 md:pt-6 pb-10 md:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <p className="text-sm font-medium text-gray-500 mb-2">Featured Project</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Discover our best works</h2>
+            <p className="text-sm font-medium text-gray-500 mb-2">{t.featured.label}</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{t.featured.title}</h2>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -274,7 +404,7 @@ export default function Home() {
                     </div>
 
                     <Link href="/works/gapai-cita" className="px-6 py-2 bg-gray-900 text-white rounded font-medium hover:bg-gray-800 transition">
-                      More Detail
+                      {t.featured.moreDetail}
                     </Link>
                   </div>
                 </div>
@@ -291,42 +421,20 @@ export default function Home() {
       <section id="services" className="bg-white py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center md:text-left">
-            <p className="text-sm font-semibold text-gray-500 tracking-wide mb-3">Our Services</p>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
-              What we do to support your business?
-            </h2>
-            <p className="mt-4 text-sm md:text-base text-gray-600">
-              Pre Project Consulting → Engagement → Agile Development → Launch & Support
-            </p>
+            <p className="text-sm font-semibold text-gray-500 tracking-wide mb-3">{t.services.label}</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">{t.services.title}</h2>
+            <p className="mt-4 text-sm md:text-base text-gray-600">{t.services.sub}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {serviceCategories.map((cat, index) => (
-              <div
+              <SessionCard
                 key={index}
-                className="rounded-xl border border-gray-200 bg-gray-50/60 p-6 hover:bg-white hover:shadow-sm transition"
-              >
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">{cat.title}</h3>
-                {"tags" in cat && (cat as any).tags ? (
-                  <div className="flex flex-wrap gap-2">
-                    {(cat as any).tags.map((tag: string, i: number) => (
-                      <Badge
-                        key={i}
-                        className="rounded-full bg-white text-gray-800 border border-gray-200 px-3 py-1 font-normal"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                ) : (
-                  <div>
-                    <p className="text-sm md:text-base text-gray-600 mb-4">{(cat as any).description}</p>
-                    <Button className="px-4 py-2 bg-gray-900 text-white hover:bg-gray-800">{
-                      (cat as any).cta?.text || "Contact Us"
-                    }</Button>
-                  </div>
-                )}
-              </div>
+                title={(cat as any).title}
+                tags={(cat as any).tags}
+                description={(cat as any).description}
+                cta={(cat as any).cta}
+              />
             ))}
           </div>
         </div>
@@ -337,8 +445,8 @@ export default function Home() {
       <section id="testimonials" className="bg-gray-50 py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <p className="text-sm font-medium text-gray-500 mb-2">Client Testimonials</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What our clients say</h2>
+            <p className="text-sm font-medium text-gray-500 mb-2">{t.testimonials.label}</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{t.testimonials.title}</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -366,55 +474,39 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-16">
-            <p className="text-sm font-semibold text-gray-500 tracking-wide mb-3">Contact Us</p>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-5">
-              We are always ready to help you
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl">
-              We have 8+ years of experience as a Digital Solution Partner. Let’s talk about how we can deliver impactful results for your business.
-            </p>
+            <p className="text-sm font-semibold text-gray-500 tracking-wide mb-3">{t.contact.label}</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-5">{t.contact.title}</h2>
+            <p className="text-lg text-gray-600 max-w-2xl">{t.contact.desc}</p>
           </div>
 
           {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left: FAQ */}
             <div className="bg-gray-900 text-white rounded-2xl p-8 md:p-10 shadow-xl">
-              <p className="text-xs uppercase tracking-wider text-gray-400">FAQ</p>
-              <h3 className="text-2xl md:text-3xl font-bold mt-2">Frequently Asked Questions</h3>
+              <p className="text-xs uppercase tracking-wider text-gray-400">{t.contact.faq.label}</p>
+              <h3 className="text-2xl md:text-3xl font-bold mt-2">{t.contact.faq.title}</h3>
 
               <div className="mt-8">
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
-                    <AccordionTrigger className="text-white">
-                      What should I do if I want to collaborate?
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-300">
-                      Reach us via email or phone. We’ll schedule an intro session to understand your goals.
-                    </AccordionContent>
+                    <AccordionTrigger className="text-white">{t.contact.faq.q1}</AccordionTrigger>
+                    <AccordionContent className="text-gray-300">{t.contact.faq.a1}</AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger className="text-white">What is Talent Service?</AccordionTrigger>
-                    <AccordionContent className="text-gray-300">
-                      We provide vetted talents for design, development, and product to accelerate delivery.
-                    </AccordionContent>
+                    <AccordionTrigger className="text-white">{t.contact.faq.q2}</AccordionTrigger>
+                    <AccordionContent className="text-gray-300">{t.contact.faq.a2}</AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger className="text-white">How do we communicate and monitor the project?</AccordionTrigger>
-                    <AccordionContent className="text-gray-300">
-                      Weekly check-ins, shared dashboards, and transparent reporting keep progress visible.
-                    </AccordionContent>
+                    <AccordionTrigger className="text-white">{t.contact.faq.q3}</AccordionTrigger>
+                    <AccordionContent className="text-gray-300">{t.contact.faq.a3}</AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger className="text-white">How fast can a project be delivered?</AccordionTrigger>
-                    <AccordionContent className="text-gray-300">
-                      It depends on scope, but most engagements kick off within 1–2 weeks.
-                    </AccordionContent>
+                    <AccordionTrigger className="text-white">{t.contact.faq.q4}</AccordionTrigger>
+                    <AccordionContent className="text-gray-300">{t.contact.faq.a4}</AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-5">
-                    <AccordionTrigger className="text-white">What if there are changes after release?</AccordionTrigger>
-                    <AccordionContent className="text-gray-300">
-                      We support post-release iterations and maintenance based on your plan.
-                    </AccordionContent>
+                    <AccordionTrigger className="text-white">{t.contact.faq.q5}</AccordionTrigger>
+                    <AccordionContent className="text-gray-300">{t.contact.faq.a5}</AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </div>
@@ -485,7 +577,7 @@ export default function Home() {
                     className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 transition"
                   >
                     <ExternalLink className="w-4 h-4" />
-                    Open Maps
+                    {t.contact.map.open}
                   </a>
                 </div>
                 <div className="aspect-[16/10] w-full">
@@ -515,66 +607,50 @@ export default function Home() {
                 </div>
                 <span className="font-bold text-lg">Dafidea</span>
               </div>
-              <p className="text-gray-400 text-sm">Transform your business with cutting-edge digital solutions.</p>
+              <p className="text-gray-400 text-sm">{t.footer.tagline}</p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-bold mb-4">Quick Links</h4>
+              <h4 className="font-bold mb-4">{t.footer.quickLinks}</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#home" className="hover:text-white transition">
-                    Home
-                  </a>
+                  <a href="#home" className="hover:text-white transition">{t.footer.home}</a>
                 </li>
                 <li>
-                  <a href="#services" className="hover:text-white transition">
-                    Services
-                  </a>
+                  <a href="#services" className="hover:text-white transition">{t.footer.services}</a>
                 </li>
                 <li>
-                  <a href="#works" className="hover:text-white transition">
-                    Works
-                  </a>
+                  <a href="#works" className="hover:text-white transition">{t.footer.works}</a>
                 </li>
                 <li>
-                  <a href="#testimonials" className="hover:text-white transition">
-                    Testimonials
-                  </a>
+                  <a href="#testimonials" className="hover:text-white transition">{t.footer.testimonials}</a>
                 </li>
               </ul>
             </div>
 
             {/* Services */}
             <div>
-              <h4 className="font-bold mb-4">Services</h4>
+              <h4 className="font-bold mb-4">{t.footer.services}</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white transition">
-                    Web Development
-                  </a>
+                  <a href="#" className="hover:text-white transition">{t.footer.webDev}</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition">
-                    Mobile Apps
-                  </a>
+                  <a href="#" className="hover:text-white transition">{t.footer.mobile}</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition">
-                    UI/UX Design
-                  </a>
+                  <a href="#" className="hover:text-white transition">{t.footer.design}</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition">
-                    Consulting
-                  </a>
+                  <a href="#" className="hover:text-white transition">{t.footer.consulting}</a>
                 </li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h4 className="font-bold mb-4">Contact</h4>
+              <h4 className="font-bold mb-4">{t.footer.contact}</h4>
               <ul className="space-y-2 text-gray-400 text-sm">
                 <li>hello@dafidea.com</li>
                 <li>+62 (0) 812-3456-7890</li>
@@ -601,14 +677,10 @@ export default function Home() {
 
           {/* Divider */}
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
-            <p className="text-gray-400 text-sm">© 2025 Dafidea. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">{t.footer.rights}</p>
             <div className="flex gap-6 text-gray-400 text-sm mt-4 md:mt-0">
-              <a href="#" className="hover:text-white transition">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition">
-                Terms of Service
-              </a>
+              <a href="#" className="hover:text-white transition">{t.footer.privacy}</a>
+              <a href="#" className="hover:text-white transition">{t.footer.terms}</a>
             </div>
           </div>
         </div>
