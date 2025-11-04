@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { SessionCard } from "@/components/ui/session-card"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react"
+import { getProjects } from "@/lib/projects"
 
 export default function Home() {
   const [activeProject, setActiveProject] = useState(0)
@@ -63,7 +64,7 @@ export default function Home() {
         mobile: "Mobile Apps",
         design: "UI/UX Design",
         consulting: "Consulting",
-        rights: "© 2025 Dafidea. All rights reserved.",
+        rights: "© 2025 Mitra Asia. All rights reserved.",
       },
     },
     id: {
@@ -117,49 +118,12 @@ export default function Home() {
         mobile: "Aplikasi Mobile",
         design: "Desain UI/UX",
         consulting: "Konsultasi",
-        rights: "© 2025 Dafidea. Semua hak dilindungi.",
+        rights: "© 2025 Mitra Asia. Semua hak dilindungi.",
       },
     },
   }[lang]
 
-  const projects = [
-    {
-      title: "FUTURA OPERATION",
-      company: "PT FUTURA ENERGI INDONESIA (FEI) - Operational App",
-      description:
-        lang === "en"
-          ? "Futura App is designed for PT FEI to elevate operational project management for renewable energy installations. Monitor with ease, foster transparency, ensure accountability, and drive efficiency in every facet."
-          : "Futura App dirancang untuk PT FEI guna meningkatkan manajemen proyek operasional instalasi energi terbarukan. Pantau dengan mudah, tingkatkan transparansi, jaga akuntabilitas, dan dorong efisiensi di setiap aspek.",
-      tags: ["Laravel", "Vue", "Flutter", "MySQL", "Figma"],
-      image: "/dafidea-1.png",
-      year: "2023",
-      bgColor: "bg-blue-500"
-    },
-    {
-      title: "SIER SPORT ARENA",
-      company: "PT SIER - Online Booking App",
-      description:
-        lang === "en"
-          ? "SIER Sport Arena is tailored for sports enthusiasts, this platform simplifies court reservations and membership registration keeps the user informed about field availability, and elevates the sports experience with ease and excitement."
-          : "SIER Sport Arena ditujukan untuk para penggiat olahraga; platform ini memudahkan pemesanan lapangan dan pendaftaran keanggotaan, memberi informasi ketersediaan lapangan, serta meningkatkan pengalaman olahraga dengan mudah dan menyenangkan.",
-      tags: ["Laravel", "Vue", "Flutter", "MySQL", "Figma", "Xendit"],
-      image: "/dafidea-2.png",
-      year: "2023",
-      bgColor: "bg-blue-500",
-    },
-    {
-      title: "GAPAI CITA",
-      company: "GENERASI CERDAS INDONESIA - Online Aptitude App",
-      description:
-        lang === "en"
-          ? "An online platform designed for aptitude assessment for students. Created in collaboration with certified psychologists, this app ensures precision in test results, raising the bar for accuracy and insight."
-          : "Platform online untuk asesmen bakat siswa. Dibuat bersama psikolog bersertifikat, aplikasi ini memastikan ketepatan hasil tes, meningkatkan akurasi dan wawasan.",
-      tags: ["Laravel", "Vue", "MySQL", "Figma"],
-      image: "/dafidea-3.png",
-      year: "2023",
-      bgColor: "bg-pink-500",
-    },
-  ]
+  const projects = getProjects(lang)
 
   const serviceCategories = [
     {
@@ -204,8 +168,8 @@ export default function Home() {
       role: "Operations Manager",
       content:
         lang === "en"
-          ? "Dafidea transformed our operations with the Futura App. The platform increased our efficiency by 40% and improved team transparency significantly."
-          : "Dafidea mengubah operasional kami dengan Futura App. Platform ini meningkatkan efisiensi 40% dan transparansi tim secara signifikan.",
+          ? "Mitra Asia transformed our operations with the Futura App. The platform increased our efficiency by 40% and improved team transparency significantly."
+          : "Mitra Asia mengubah operasional kami dengan Futura App. Platform ini meningkatkan efisiensi 40% dan transparansi tim secara signifikan.",
       avatar: "JS",
     },
     {
@@ -224,8 +188,8 @@ export default function Home() {
       role: "Director",
       content:
         lang === "en"
-          ? "Working with Dafidea on GAPAI CITA was exceptional. They understood our complex requirements and delivered a solution that truly helps students."
-          : "Bekerja dengan Dafidea pada GAPAI CITA sangat luar biasa. Mereka memahami kebutuhan kompleks kami dan menghadirkan solusi yang benar-benar membantu siswa.",
+          ? "Working with Mitra Asia on GAPAI CITA was exceptional. They understood our complex requirements and delivered a solution that truly helps students."
+          : "Bekerja dengan Mitra Asia pada GAPAI CITA sangat luar biasa. Mereka memahami kebutuhan kompleks kami dan menghadirkan solusi yang benar-benar membantu siswa.",
       avatar: "AW",
     },
   ]
@@ -240,9 +204,9 @@ export default function Home() {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">d</span>
+              <span className="text-white font-bold">m</span>
             </div>
-            <span className="font-bold text-lg text-gray-900">Dafidea</span>
+            <span className="font-bold text-lg text-gray-900">Mitra Asia</span>
           </div>
 
           {/* Navigation */}
@@ -390,7 +354,7 @@ export default function Home() {
 
                   {/* Right: Project Content */}
                   <div className="w-full md:w-1/2">
-                    <p className="text-sm font-medium mb-2 opacity-90">Developed by : Dafidea</p>
+                    <p className="text-sm font-medium mb-2 opacity-90">Developed by : Mitra Asia</p>
                     <h3 className="text-3xl md:text-4xl font-bold mb-6">{currentProject.title}</h3>
                     <p className="text-base leading-relaxed mb-8">{currentProject.description}</p>
 
@@ -403,7 +367,7 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <Link href="/works/gapai-cita" className="px-6 py-2 bg-gray-900 text-white rounded font-medium hover:bg-gray-800 transition">
+                    <Link href={`/works/${currentProject.slug}`} className="px-6 py-2 bg-gray-900 text-white rounded font-medium hover:bg-gray-800 transition">
                       {t.featured.moreDetail}
                     </Link>
                   </div>
@@ -524,10 +488,10 @@ export default function Home() {
                     <div>
                       <p className="text-xs font-semibold text-gray-500">Email</p>
                       <a
-                        href="mailto:hello@dafidea.com"
+                        href="mailto:hello@mitraasia.com"
                         className="text-gray-900 font-medium hover:text-blue-600 transition"
                       >
-                        hello@dafidea.com
+                        hello@mitraasia.com
                       </a>
                     </div>
                   </div>
@@ -557,7 +521,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-gray-500">Address</p>
-                      <p className="text-gray-900 font-medium">Perum Mastrip C10, Sumbersari, Jember 68121</p>
+                      <p className="text-gray-900 font-medium">Sigong,Lemahabang, Cirebon</p>
                     </div>
                   </div>
                 </div>
@@ -567,11 +531,11 @@ export default function Home() {
               <div className="relative rounded-2xl border bg-white overflow-hidden shadow-sm">
                 <div className="absolute inset-x-4 top-4 z-10 bg-white/90 backdrop-blur rounded-xl p-4 flex items-center justify-between gap-4 shadow-xs">
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-900">Dafidea Techno</h4>
-                    <p className="text-xs text-gray-500">Sumbersari, Jember</p>
+                    <h4 className="text-sm font-semibold text-gray-900">Mitra Asia Office</h4>
+                    <p className="text-xs text-gray-500">Sigong,Lemahabang, Cirebon</p>
                   </div>
                   <a
-                    href="https://maps.google.com/?q=Dafidea%20Techno%20Sumbersari%20Jember"
+                    href="https://maps.google.com/?q=Mitra%20Asia%20Sigong,Lemahabang, Cirebon"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 transition"
@@ -582,8 +546,8 @@ export default function Home() {
                 </div>
                 <div className="aspect-[16/10] w-full">
                   <iframe
-                    title="Dafidea Techno Location"
-                    src="https://maps.google.com/maps?q=Dafidea%20Techno%20Sumbersari%20Jember&output=embed"
+                    title="Mitra Asia Location"
+                    src="https://maps.google.com/maps?q=Mitra%20Asia%20Sumbersari%20Jember&output=embed"
                     className="w-full h-full"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -603,9 +567,9 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">d</span>
+                  <span className="text-white font-bold">m</span>
                 </div>
-                <span className="font-bold text-lg">Dafidea</span>
+                <span className="font-bold text-lg">Mitra Asia</span>
               </div>
               <p className="text-gray-400 text-sm">{t.footer.tagline}</p>
             </div>
@@ -652,7 +616,7 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">{t.footer.contact}</h4>
               <ul className="space-y-2 text-gray-400 text-sm">
-                <li>hello@dafidea.com</li>
+                <li>hello@mitraasia.com</li>
                 <li>+62 (0) 812-3456-7890</li>
                 <li className="pt-4">
                   <span className="inline-block mr-3">
